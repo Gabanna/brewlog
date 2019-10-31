@@ -1,31 +1,142 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_00lhi1e" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.1">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_00lhi1e" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.1">
   <bpmn:collaboration id="Collaboration_1qklxss">
     <bpmn:participant id="Participant_Maischen" name="Maischen" processRef="Process_Maischen" />
   </bpmn:collaboration>
   <bpmn:process id="Process_Maischen" name="Maischen" isExecutable="true">
-    <bpmn:startEvent id="StartEvent_1">
-      <bpmn:outgoing>SequenceFlow_14vkrgl</bpmn:outgoing>
+    <bpmn:startEvent id="StartEvent_1" name="Maischen beginnt">
+      <bpmn:outgoing>SequenceFlow_0xjnv1y</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:endEvent id="EndEvent_0t14u7w">
-      <bpmn:incoming>SequenceFlow_14vkrgl</bpmn:incoming>
+    <bpmn:userTask id="UserTask_Einmaischen" name="Einmaischen">
+      <bpmn:incoming>SequenceFlow_0xjnv1y</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ipngww</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="UserTask_EiweissrastenPlanen" name="Eiweißrasten planen">
+      <bpmn:incoming>SequenceFlow_0ipngww</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0ij5fyk</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="UserTask_EiweissrastBeginnen" name="Eiweißrast beginnen">
+      <bpmn:incoming>SequenceFlow_AusstehendeEiweissrasten</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1y87trp</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="UserTask_JodprobeDurchfuehren" name="Jodprobe durchführen">
+      <bpmn:incoming>SequenceFlow_EiweissrastAbgeschlossen</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0eoiggm</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_SindEiweissrastenAusstehend" name="Sind Eiweißrasten ausstehend?">
+      <bpmn:extensionElements>
+        <camunda:executionListener delegateExpression="${pendingPauseDelegate}" event="start" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0ij5fyk</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0zfug5p</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_AusstehendeEiweissrasten</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_EiweissrastAbgeschlossen</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:intermediateCatchEvent id="IntermediateThrowEvent_EiweissrastAbwarten" name="Eiweißrast abwarten">
+      <bpmn:incoming>SequenceFlow_1y87trp</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0zfug5p</bpmn:outgoing>
+      <bpmn:timerEventDefinition>
+        <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">${pauseDuration}</bpmn:timeDuration>
+      </bpmn:timerEventDefinition>
+    </bpmn:intermediateCatchEvent>
+    <bpmn:endEvent id="EndEvent_00b8bgh" name="Maischen abgeschlossen">
+      <bpmn:incoming>SequenceFlow_0eoiggm</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_14vkrgl" sourceRef="StartEvent_1" targetRef="EndEvent_0t14u7w" />
+    <bpmn:sequenceFlow id="SequenceFlow_0xjnv1y" sourceRef="StartEvent_1" targetRef="UserTask_Einmaischen" />
+    <bpmn:sequenceFlow id="SequenceFlow_0ipngww" sourceRef="UserTask_Einmaischen" targetRef="UserTask_EiweissrastenPlanen" />
+    <bpmn:sequenceFlow id="SequenceFlow_0ij5fyk" sourceRef="UserTask_EiweissrastenPlanen" targetRef="ExclusiveGateway_SindEiweissrastenAusstehend" />
+    <bpmn:sequenceFlow id="SequenceFlow_AusstehendeEiweissrasten" name="ja" sourceRef="ExclusiveGateway_SindEiweissrastenAusstehend" targetRef="UserTask_EiweissrastBeginnen">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${pendingPauses}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_1y87trp" sourceRef="UserTask_EiweissrastBeginnen" targetRef="IntermediateThrowEvent_EiweissrastAbwarten" />
+    <bpmn:sequenceFlow id="SequenceFlow_EiweissrastAbgeschlossen" name="nein" sourceRef="ExclusiveGateway_SindEiweissrastenAusstehend" targetRef="UserTask_JodprobeDurchfuehren">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!pendingPauses}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0eoiggm" sourceRef="UserTask_JodprobeDurchfuehren" targetRef="EndEvent_00b8bgh" />
+    <bpmn:sequenceFlow id="SequenceFlow_0zfug5p" sourceRef="IntermediateThrowEvent_EiweissrastAbwarten" targetRef="ExclusiveGateway_SindEiweissrastenAusstehend" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1qklxss">
       <bpmndi:BPMNShape id="Participant_075h0gk_di" bpmnElement="Participant_Maischen" isHorizontal="true">
-        <dc:Bounds x="129" y="76" width="600" height="250" />
+        <dc:Bounds x="129" y="71" width="1041" height="344" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
-        <dc:Bounds x="179" y="159" width="36" height="36" />
+        <dc:Bounds x="210" y="187" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="184" y="230" width="88" height="14" />
+        </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_0t14u7w_di" bpmnElement="EndEvent_0t14u7w">
-        <dc:Bounds x="265" y="159" width="36" height="36" />
+      <bpmndi:BPMNEdge id="SequenceFlow_0xjnv1y_di" bpmnElement="SequenceFlow_0xjnv1y">
+        <di:waypoint x="246" y="205" />
+        <di:waypoint x="296" y="205" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_0w9gdwl_di" bpmnElement="UserTask_Einmaischen">
+        <dc:Bounds x="296" y="165" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_14vkrgl_di" bpmnElement="SequenceFlow_14vkrgl">
-        <di:waypoint x="215" y="177" />
-        <di:waypoint x="265" y="177" />
+      <bpmndi:BPMNShape id="UserTask_1134sc3_di" bpmnElement="UserTask_EiweissrastenPlanen">
+        <dc:Bounds x="483" y="165" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ipngww_di" bpmnElement="SequenceFlow_0ipngww">
+        <di:waypoint x="396" y="205" />
+        <di:waypoint x="483" y="205" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0oup0av_di" bpmnElement="ExclusiveGateway_SindEiweissrastenAusstehend" isMarkerVisible="true">
+        <dc:Bounds x="670" y="180" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="628" y="231" width="64" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0ij5fyk_di" bpmnElement="SequenceFlow_0ij5fyk">
+        <di:waypoint x="583" y="205" />
+        <di:waypoint x="670" y="205" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_07xwasb_di" bpmnElement="SequenceFlow_AusstehendeEiweissrasten">
+        <di:waypoint x="720" y="205" />
+        <di:waypoint x="807" y="205" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="741" y="182" width="8" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1y87trp_di" bpmnElement="SequenceFlow_1y87trp">
+        <di:waypoint x="907" y="205" />
+        <di:waypoint x="994" y="205" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="IntermediateCatchEvent_0kuye8y_di" bpmnElement="IntermediateThrowEvent_EiweissrastAbwarten">
+        <dc:Bounds x="994" y="187" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="986" y="230" width="53" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0zfug5p_di" bpmnElement="SequenceFlow_0zfug5p">
+        <di:waypoint x="1030" y="205" />
+        <di:waypoint x="1070" y="205" />
+        <di:waypoint x="1070" y="135" />
+        <di:waypoint x="695" y="135" />
+        <di:waypoint x="695" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1bdxcie_di" bpmnElement="UserTask_EiweissrastBeginnen">
+        <dc:Bounds x="807" y="165" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_1myjawv_di" bpmnElement="SequenceFlow_EiweissrastAbgeschlossen">
+        <di:waypoint x="695" y="230" />
+        <di:waypoint x="695" y="315" />
+        <di:waypoint x="807" y="315" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="731" y="289" width="21" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_13ulftx_di" bpmnElement="UserTask_JodprobeDurchfuehren">
+        <dc:Bounds x="807" y="275" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_00b8bgh_di" bpmnElement="EndEvent_00b8bgh">
+        <dc:Bounds x="994" y="297" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="975" y="340" width="74" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0eoiggm_di" bpmnElement="SequenceFlow_0eoiggm">
+        <di:waypoint x="907" y="315" />
+        <di:waypoint x="994" y="315" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
