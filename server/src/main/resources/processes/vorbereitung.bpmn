@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0uy4qka" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.1">
+  <bpmn:collaboration id="Collaboration_0na6u2t">
+    <bpmn:participant id="Participant_Vorbereitung" name="Vorbereitung" processRef="Process_Vorbereitung" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_Vorbereitung" name="Vorbereitung" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>SequenceFlow_0txev3b</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0txev3b" sourceRef="StartEvent_1" targetRef="UserTask_BraudatenErfassen" />
+    <bpmn:endEvent id="EndEvent_0tkztod">
+      <bpmn:incoming>SequenceFlow_1amr9lm</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_1amr9lm" sourceRef="UserTask_MalzBestimmen" targetRef="EndEvent_0tkztod" />
+    <bpmn:sequenceFlow id="SequenceFlow_0rx68bl" sourceRef="UserTask_BraudatenErfassen" targetRef="UserTask_MalzBestimmen" />
+    <bpmn:userTask id="UserTask_BraudatenErfassen" name="Braudaten erfassen">
+      <bpmn:incoming>SequenceFlow_0txev3b</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0rx68bl</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:userTask id="UserTask_MalzBestimmen" name="Malz bestimmen">
+      <bpmn:incoming>SequenceFlow_0rx68bl</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1amr9lm</bpmn:outgoing>
+    </bpmn:userTask>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0na6u2t">
+      <bpmndi:BPMNShape id="Participant_12cq7qu_di" bpmnElement="Participant_Vorbereitung" isHorizontal="true">
+        <dc:Bounds x="129" y="81" width="600" height="250" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="177" y="172" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0tkztod_di" bpmnElement="EndEvent_0tkztod">
+        <dc:Bounds x="655" y="172" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0txev3b_di" bpmnElement="SequenceFlow_0txev3b">
+        <di:waypoint x="213" y="190" />
+        <di:waypoint x="292" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1amr9lm_di" bpmnElement="SequenceFlow_1amr9lm">
+        <di:waypoint x="576" y="190" />
+        <di:waypoint x="655" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_15qb4uf_di" bpmnElement="UserTask_MalzBestimmen">
+        <dc:Bounds x="476" y="150" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0rx68bl_di" bpmnElement="SequenceFlow_0rx68bl">
+        <di:waypoint x="392" y="190" />
+        <di:waypoint x="476" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="UserTask_1hcj84g_di" bpmnElement="UserTask_BraudatenErfassen">
+        <dc:Bounds x="292" y="150" width="100" height="80" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
