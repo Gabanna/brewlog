@@ -3,6 +3,10 @@ package de.rgse.brewlog.process;
 public enum ProcessVariables {
 
 	PENDING_PAUSES("pendingPauses"),
+	PENDING_HOPFENS("pendingHopfens"),
+	HOPFEN_KOCHZEIT("hopfenKochzeit"),
+	GAEHRUNGS_INTERVALL("gaehrungsIntervall"),
+	GAERUNG_ABGESCHLOSSEN("gaerungAbgeschlossen"),
 	PAUSE_DURATION("pauseDuration");
 
 	private final String variableName;

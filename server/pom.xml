@@ -69,6 +69,18 @@
         </dependency>
 
         <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.reflections</groupId>
+            <artifactId>reflections</artifactId>
+            <version>0.9.11</version>
+        </dependency>
+
+        <dependency>
             <groupId>io.thorntail</groupId>
             <artifactId>datasources</artifactId>
         </dependency>
@@ -79,6 +91,20 @@
         <dependency>
             <groupId>io.thorntail</groupId>
             <artifactId>cdi</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>jsf</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>7.0</version>
         </dependency>
 
         <dependency>
@@ -184,6 +210,29 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>nl.geodienstencentrum.maven</groupId>
+                <artifactId>sass-maven-plugin</artifactId>
+                <version>3.7.2</version>
+                <executions>
+                    <execution>
+                        <phase>process-sources</phase>
+                        <goals>
+                            <goal>update-stylesheets</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <sassSourceDirectory>${basedir}/src/main/scss/dist</sassSourceDirectory>
+                    <includes>
+                        <include>bundle.scss</include>
+                    </includes>
+                    <excludes>
+                        <exclude>fractions/*</exclude>
+                    </excludes>
+                    <destination>${project.basedir}/src/main/webapp/resources/css</destination>
+                </configuration>
             </plugin>
         </plugins>
     </build>
