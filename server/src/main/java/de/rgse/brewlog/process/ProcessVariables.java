@@ -7,7 +7,8 @@ public enum ProcessVariables {
 	HOPFEN_KOCHZEIT("hopfenKochzeit"),
 	GAEHRUNGS_INTERVALL("gaehrungsIntervall"),
 	GAERUNG_ABGESCHLOSSEN("gaerungAbgeschlossen"),
-	PAUSE_DURATION("pauseDuration");
+	PAUSE_DURATION("pauseDuration"),
+	CLIENT_ID("clientId");
 
 	private final String variableName;
 

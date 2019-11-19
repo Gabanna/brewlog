@@ -1,11 +1,15 @@
 package de.rgse.brewlog.rest.endpoints;
 
 import com.google.gson.Gson;
-import org.camunda.bpm.engine.RuntimeService;
+import de.rgse.brewlog.process.ProcessVariables;
+import de.rgse.brewlog.rest.ClientIdHeaderFilter;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.task.Task;
 
 import javax.inject.Inject;
+import javax.interceptor.Interceptors;
+import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
@@ -24,12 +28,34 @@ public class BrauschrittEndpoint {
 		this.taskService = taskService;
 	}
 
-	@Path("{businessKey}")
-	public Response getBrauschrittForProcess(@PathParam("businessKey") String businessKey) {
+	@GET
+	public Response getBrauschritte(@HeaderParam("Client-Id") String clientId) {
 		Response.ResponseBuilder response;
 
 		List<Task> tasks = taskService
 				.createTaskQuery()
+				.processVariableValueEquals(ProcessVariables.CLIENT_ID.getVariableName(), clientId)
+				.list();
+
+		if(tasks.isEmpty()) {
+			response = Response.noContent();
+
+		} else {
+			String json = new Gson().toJson(tasks);
+			response = Response.ok(json, MediaType.APPLICATION_JSON_TYPE);
+		}
+
+		return response.build();
+	}
+
+	@Path("{businessKey}")
+	@GET
+	public Response getBrauschrittForProcess(@HeaderParam("Client-Id") String clientId, @PathParam("businessKey") String businessKey) {
+		Response.ResponseBuilder response;
+
+		List<Task> tasks = taskService
+				.createTaskQuery()
+				.processVariableValueEquals(ProcessVariables.CLIENT_ID.getVariableName(), clientId)
 				.processInstanceBusinessKey(businessKey)
 				.list();
 

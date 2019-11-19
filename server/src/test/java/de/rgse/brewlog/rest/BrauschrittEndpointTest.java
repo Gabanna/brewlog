@@ -2,6 +2,7 @@ package de.rgse.brewlog.rest;
 
 import com.google.gson.Gson;
 import de.rgse.brewlog.ProcessTest;
+import de.rgse.brewlog.process.ProcessVariables;
 import de.rgse.brewlog.rest.endpoints.BrauschrittEndpoint;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -25,10 +26,12 @@ public class BrauschrittEndpointTest extends ProcessTest {
 	})
 	public void test_getEntity() {
 		String businessKey = "bk";
+		String clientId = "clientId";
 		ProcessInstance processVorbereitung = runtimeService().startProcessInstanceByKey("Process_Vorbereitung", businessKey);
+		runtimeService().setVariable(processVorbereitung.getId(), ProcessVariables.CLIENT_ID.getVariableName(), clientId);
 
 		BrauschrittEndpoint bet = new BrauschrittEndpoint(taskService());
-		Response response = bet.getBrauschrittForProcess(businessKey);
+		Response response = bet.getBrauschrittForProcess(clientId, businessKey);
 
 		Assert.assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 		Assert.assertEquals(MediaType.APPLICATION_JSON_TYPE, response.getMediaType());
