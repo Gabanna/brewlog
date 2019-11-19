@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_0uy4qka" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.1">
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_0uy4qka" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="3.0.1">
   <bpmn:collaboration id="Collaboration_0na6u2t">
     <bpmn:participant id="Participant_Vorbereitung" name="Vorbereitung" processRef="Process_Vorbereitung" />
   </bpmn:collaboration>
@@ -14,6 +14,11 @@
     <bpmn:sequenceFlow id="SequenceFlow_1amr9lm" sourceRef="UserTask_MalzBestimmen" targetRef="EndEvent_0tkztod" />
     <bpmn:sequenceFlow id="SequenceFlow_0rx68bl" sourceRef="UserTask_BraudatenErfassen" targetRef="UserTask_MalzBestimmen" />
     <bpmn:userTask id="UserTask_BraudatenErfassen" name="Braudaten erfassen">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="FormField_Biername" label="Biername" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0txev3b</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0rx68bl</bpmn:outgoing>
     </bpmn:userTask>
