@@ -23,7 +23,12 @@ jobs:
         - echo y | ./android-sdk-linux/tools/android update sdk --no-ui --all --filter extra-google-m2repository
         - export ANDROID_HOME=$PWD/android-sdk-linux
         - export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools:$ANDROID_HOME/build-tools/23.0.2
-
       script:
+        - cd client
         - ionic cordova prepare
         - ionic cordova build android
+    - stage: build-backend
+      language: java
+      script:
+        - cd server
+        - mvn package
