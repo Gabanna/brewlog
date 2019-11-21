@@ -13,7 +13,7 @@
         <version.thorntail>2.5.0.Final</version.thorntail>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <fraction.version>7.11.0</fraction.version>
-        <artifactName>${project.artifactId}-${project.version}</artifactName>
+        <artifactName>brewlog-server</artifactName>
     </properties>
 
     <dependencyManagement>

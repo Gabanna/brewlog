@@ -1,5 +1,6 @@
 
 sudo: false
+skip_cleanup: true
 
 jobs:
   include:
@@ -27,8 +28,15 @@ jobs:
         - npm install
         - ionic cordova prepare android
         - ionic cordova build android
+
     - stage: build-backend
       language: java
       script:
         - cd server
         - mvn package -q
+
+    - stage: deployment
+      deploy:
+        provider: releases
+        api_key: "$GITHUB_TOKEN"
+        file: server/target/brewlog-server-thorntail.jar
