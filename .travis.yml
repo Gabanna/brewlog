@@ -31,4 +31,4 @@ jobs:
       language: java
       script:
         - cd server
-        - mvn package
+        - mvn package -q
