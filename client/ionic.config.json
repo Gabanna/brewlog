@@ -1,0 +1,7 @@
+{
+  "name": "brewLog",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
