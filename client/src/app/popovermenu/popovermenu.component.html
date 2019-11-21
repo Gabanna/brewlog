@@ -1,0 +1,6 @@
+<ion-list>
+  <ion-item *ngFor="let menuItem of menuItems" (click)="onClick(menuItem)">
+    <i item-start class="material-icons">{{menuItem.icon}}</i>
+    <ion-label>{{menuItem.label | translate:menuItem.langParam}}</ion-label>
+  </ion-item>
+</ion-list>
