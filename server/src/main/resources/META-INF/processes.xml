@@ -5,7 +5,7 @@
 
     <process-engine name="embedded">
         <configuration>org.camunda.bpm.engine.impl.cfg.JtaProcessEngineConfiguration</configuration>
-        <datasource>java:jboss/datasources/brewlogDS</datasource>
+        <datasource>java:jboss/datasources/brewlogds</datasource>
         <properties>
             <property name="history">full</property>
             <property name="databaseSchemaUpdate">true</property>

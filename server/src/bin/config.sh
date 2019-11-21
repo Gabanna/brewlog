@@ -1,0 +1,4 @@
+export DB_CONNECTION_URL=jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+export DB_DRIVER_NAME=h2
+export DB_USER_NAME=sa
+export DB_PASSWORD=sa

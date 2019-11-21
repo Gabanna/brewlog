@@ -13,6 +13,7 @@
         <version.thorntail>2.5.0.Final</version.thorntail>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <fraction.version>7.11.0</fraction.version>
+        <artifactName>${project.artifactId}-${project.version}</artifactName>
     </properties>
 
     <dependencyManagement>
@@ -179,6 +180,7 @@
     </dependencies>
 
     <build>
+        <finalName>${artifactName}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -218,34 +220,11 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>nl.geodienstencentrum.maven</groupId>
-                <artifactId>sass-maven-plugin</artifactId>
-                <version>3.7.2</version>
-                <executions>
-                    <execution>
-                        <phase>process-sources</phase>
-                        <goals>
-                            <goal>update-stylesheets</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <sassSourceDirectory>${basedir}/src/main/scss/dist</sassSourceDirectory>
-                    <includes>
-                        <include>bundle.scss</include>
-                    </includes>
-                    <excludes>
-                        <exclude>fractions/*</exclude>
-                    </excludes>
-                    <destination>${project.basedir}/src/main/webapp/resources/css</destination>
-                </configuration>
-            </plugin>
-            <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
                 <version>3.1.0</version>
                 <executions>
                     <execution>
-                        <id>copy-resources</id>
+                        <id>copy-client</id>
                         <!-- here the phase you need -->
                         <phase>package</phase>
                         <goals>
@@ -256,6 +235,22 @@
                             <resources>
                                 <resource>
                                     <directory>${basedir}/../client/www</directory>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>copy-script</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${basedir}/target/bin</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${basedir}/src/bin</directory>
                                     <filtering>true</filtering>
                                 </resource>
                             </resources>
