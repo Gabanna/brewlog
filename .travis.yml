@@ -1,17 +1,10 @@
 
 sudo: false
 
-skip_cleanup: true
-deploy:
-  provider: releases
-  api_key: "$GITHUB_TOKEN"
-  file: server/target/brewlog-server-thorntail.jar
-
 jobs:
   include:
     - stage: build-client
       language: node_js
-      skip_cleanup: true
       node_js:
         - "10.15.3"
 
@@ -40,4 +33,4 @@ jobs:
       skip_cleanup: true
       script:
         - cd server
-        - mvn package -q
+        - mvn deploy -Dregistry=https://maven.pkg.github.com/Gabanna -Dtoken=$GITHUB_TOKEN -q
