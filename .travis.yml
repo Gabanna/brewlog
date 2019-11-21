@@ -1,11 +1,11 @@
 
 sudo: false
-skip_cleanup: true
 
 jobs:
   include:
     - stage: build-client
       language: node_js
+      skip_cleanup: true
       node_js:
         - "10.15.3"
 
@@ -31,11 +31,13 @@ jobs:
 
     - stage: build-backend
       language: java
+      skip_cleanup: true
       script:
         - cd server
         - mvn package -q
 
     - stage: deployment
+      skip_cleanup: true
       deploy:
         provider: releases
         api_key: "$GITHUB_TOKEN"
