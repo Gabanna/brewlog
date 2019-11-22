@@ -34,4 +34,5 @@ jobs:
         - cd server
         - envsubst < settings.template.xml > settings.xml
       script:
+        - cat settings.xml
         - mvn --settings settings.xml deploy -q
