@@ -39,8 +39,9 @@ jobs:
         keyfile: client/googleKey.json
         project: brewlog
         file: client/platforms/android/build/outputs/apk/*
-        tags: true
         version: $TRAVIS_TAG
+        on:
+          tags: true
       
     - stage: build backend
       skip_cleanup: true
