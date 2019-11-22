@@ -30,7 +30,8 @@ jobs:
 
     - stage: build-backend
       language: java
-      skip_cleanup: true
-      script:
+      before_script:
         - cd server
-        - mvn deploy -Dregistry=https://maven.pkg.github.com/Gabanna -Dtoken=$GITHUB_TOKEN -q
+        - envsubst < settings.template.xml > settings.xml
+      script:
+        - mvn --settings settings.xml deploy -q
