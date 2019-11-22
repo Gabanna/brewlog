@@ -28,11 +28,22 @@ jobs:
         - ionic cordova prepare android
         - ionic cordova build android
 
-    - stage: build-backend
+    - stage: build-backend-service
       language: java
-      before_script:
-        - cd server
-        - envsubst < settings.template.xml > settings.xml
       script:
-        - cat settings.xml
-        - mvn --settings settings.xml deploy -q
+        - cd server
+        - mvn deploy -q
+    - stage: build-backend-image
+      services:
+        - docker
+      script:
+        - cd server
+        - docker build . -t rgse/brewlog-server:$TRAVIS_COMMIT
+    -stage: publish
+      if: tag IS present
+      services:
+        - docker
+      script:
+        - docker tag rgse/brewlog-server:$TRAVIS_COMMIT rgse/brewlog-server:$TRAVIS_TAG
+        - docker login -u $DOCKER_USER -p $DOCKER_TOKEN
+        - docker push rgse/brewlog-server:$TRAVIS_TAG
