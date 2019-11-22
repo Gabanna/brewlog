@@ -21,6 +21,12 @@
             <id>github</id>
             <name>Github</name>
             <url>https://maven.pkg.github.com/Gabanna</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
         </repository>
     </distributionManagement>
 
