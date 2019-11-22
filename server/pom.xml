@@ -20,7 +20,7 @@
         <repository>
             <id>github</id>
             <name>Github</name>
-            <url>https://maven.pkg.github.com/Gabanna</url>
+            <url>https://maven.pkg.github.com/Gabanna/brewlog</url>
             <releases>
                 <enabled>true</enabled>
             </releases>
