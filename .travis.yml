@@ -30,7 +30,8 @@ jobs:
         - ionic cordova build android
       
       before_deploy:
-        - echo $GOOGLE_KEY_JSON > googleKey.json
+        - echo $GOOGLE_KEY_JSON | base64 --decode > googleKey.json
+        - cat googleKey.json
 
       deploy:
         skip_cleanup: true
