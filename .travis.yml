@@ -39,7 +39,8 @@ jobs:
       script:
         - cd server
         - docker build . -t rgse/brewlog-server:$TRAVIS_COMMIT
-    -stage: publish
+    - stage: publish
+      if: tag IS present
       services:
         - docker
       script:
