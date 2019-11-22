@@ -32,7 +32,7 @@ jobs:
       language: java
       script:
         - cd server
-        - mvn deploy -q
+        - mvn package -q
     - stage: build-backend-image
       services:
         - docker
