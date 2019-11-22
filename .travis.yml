@@ -36,9 +36,9 @@ jobs:
       deploy:
         skip_cleanup: true
         provider: gae
-        keyfile: client/googleKey.json
+        keyfile: googleKey.json
         project: brewlog
-        file: client/platforms/android/build/outputs/apk/*
+        file: platforms/android/build/outputs/apk/*
         version: $TRAVIS_TAG
         on:
           tags: true
