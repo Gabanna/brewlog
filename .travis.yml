@@ -4,6 +4,7 @@ sudo: false
 jobs:
   include:
     - stage: build frontend
+      skip_cleanup: true
       language: node_js
       node_js:
         - 10.15.3
@@ -27,7 +28,22 @@ jobs:
         - npm install
         - ionic cordova prepare android
         - ionic cordova build android
+      
+      before_deploy:
+        - echo $GOOGLE_KEY_JSON > googleKey.json
+
+      deploy:
+        skip_cleanup: true
+        provider: gae
+        keyfile: client/googleKey.json
+        project: brewlog
+        file: client/platforms/android/build/outputs/apk/*
+        on:
+          - tag
+        version: $TRAVIS_TAG
+      
     - stage: build backend
+      skip_cleanup: true
       language: java
       if: tag IS NOT present
       services:
@@ -37,6 +53,7 @@ jobs:
         - mvn package "-DimageTag=$TRAVIS_COMMIT" -q
         
     - stage: build and publish backend
+      skip_cleanup: true
       if: tag IS present
       services:
         - docker
@@ -46,13 +63,3 @@ jobs:
         - docker tag rgse/brewlog-server:$TRAVIS_COMMIT rgse/brewlog-server:$TRAVIS_TAG
         - docker login -u $DOCKER_USER -p $DOCKER_TOKEN
         - docker push rgse/brewlog-server:$TRAVIS_TAG
-
-deploy:
-  provider: releases
-  if: tag IS present
-  skip_cleanup: true
-  overwrite: true
-  api_key:
-    secure: oVvKZhQGC9fhquSLNuYclzH7XdZusVclYJBNHc4MUHkcUJTcTZdQHb1NYFGeaWH1BXvQ9Po58bhpJefHLqMeWvy3/6yyLYPXCQMvT4b7Xi3rkinNVjvoM/RaYHun9R6BAxK/mw8mIC9uVTJHD4jj/rLQsG4Jq/ZEDJyKA8SeHLmDxS82u/1nhDVNZrxd1nMdribkkrxUnsOy2ErH4gJv8O+nbQS3w8JJry26zkh13EKovPrSBe3ogmIlF3gYRZuBbpMAoTYeSQ1uPAapMJEwqIdyeBasTyFmU29Qec3OG/Ud4MB3tK3FF3IFTjygM6SNO4MLn5x8VLnSlthlou9BOXXogqpg5smF1N91/bSWuiDfiRH1nqBX9k7sLy4UjCOaGfP74YAOF8GWHtYVEC2UOvWS4KtZX46gq6ejFibl4gRvtjqLYemBb5M/aczSjJXRMFXOx/X8zxpJ8Dx4K2ioyFqraaFhdyIm5Be3JQmwDr7GfkTapwnbV1ru3UPiXoRdfYgh9yxnSeehUES1m73Fsd29IWlHYZfhCFBF7wOgI5z7P3mKEVPpt/Xx9TBOnoZrS3PhabuG6BmSRhIfPd3s2j6U8YH5Pu/DRANBqJuK7+YlFtEBOP8txUuYzLDU0lLDGyOK/EzIm1jguxUMVfhk5OlracL/3kOeMETXP7+VCw8=
-  file_glob: true
-  file: client/platforms/android/build/outputs/apk/*
