@@ -31,6 +31,7 @@ jobs:
       
       before_deploy:
         - echo $GOOGLE_KEY_JSON | base64 --decode > googleKey.json
+        - VERSION=$($TRAVIS_TAG | sed 's/\./-/g')
         - cat googleKey.json
 
       deploy:
@@ -39,7 +40,7 @@ jobs:
         keyfile: googleKey.json
         project: brewlog
         file: platforms/android/build/outputs/apk/*
-        version: $TRAVIS_TAG
+        version: $TRAVIS_TAG | 
         on:
           tags: true
       
