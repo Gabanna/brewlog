@@ -3,7 +3,7 @@ sudo: false
 
 jobs:
   include:
-    - stage: build-client
+    - stage: build frontend
       language: node_js
       node_js:
         - 10.15.3
@@ -28,7 +28,7 @@ jobs:
         - ionic cordova prepare android
         - ionic cordova build android
 
-    - stage: build-backend-service
+    - stage: build backend
       language: java
       if: tag IS NOT present
       services:
@@ -37,7 +37,7 @@ jobs:
         - cd server
         - mvn package "-DimageTag=$TRAVIS_COMMIT" -q
         
-    - stage: publish
+    - stage: build and publish backend
       if: tag IS present
       services:
         - docker
