@@ -30,17 +30,20 @@ jobs:
 
     - stage: build-backend-service
       language: java
+      if: tag IS NOT present
       services:
         - docker
-      skip_cleanup: true
       script:
         - cd server
         - mvn package "-DimageTag=$TRAVIS_COMMIT" -q
+        
     - stage: publish
       if: tag IS present
       services:
         - docker
       script:
+        - cd server
+        - mvn package "-DimageTag=$TRAVIS_COMMIT" -q
         - docker tag rgse/brewlog-server:$TRAVIS_COMMIT rgse/brewlog-server:$TRAVIS_TAG
         - docker login -u $DOCKER_USER -p $DOCKER_TOKEN
         - docker push rgse/brewlog-server:$TRAVIS_TAG
