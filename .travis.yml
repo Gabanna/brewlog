@@ -39,7 +39,7 @@ jobs:
         keyfile: client/googleKey.json
         project: brewlog
         file: client/platforms/android/build/outputs/apk/*
-        if: tag IS present
+        tags: true
         version: $TRAVIS_TAG
       
     - stage: build backend
