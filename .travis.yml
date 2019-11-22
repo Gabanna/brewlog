@@ -30,6 +30,7 @@ jobs:
 
     - stage: build-backend-service
       language: java
+      skip_cleanup: true
       script:
         - cd server
         - mvn package -q
