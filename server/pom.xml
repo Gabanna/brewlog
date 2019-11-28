@@ -10,10 +10,12 @@
     <packaging>war</packaging>
 
     <properties>
-        <version.thorntail>2.5.0.Final</version.thorntail>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <fraction.version>7.11.0</fraction.version>
         <artifactName>brewlog-server</artifactName>
+
+        <thorntail.version>2.5.0.Final</thorntail.version>
+        <fraction.version>7.11.0</fraction.version>
+        <querydsl.version>4.2.2</querydsl.version>
     </properties>
 
     <dependencyManagement>
@@ -28,7 +30,7 @@
             <dependency>
                 <groupId>io.thorntail</groupId>
                 <artifactId>bom</artifactId>
-                <version>${version.thorntail}</version>
+                <version>${thorntail.version}</version>
                 <scope>import</scope>
                 <type>pom</type>
             </dependency>
@@ -129,6 +131,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.querydsl</groupId>
+            <artifactId>querydsl-jpa</artifactId>
+            <version>${querydsl.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-engine</artifactId>
             <version>1.5.2</version>
@@ -207,7 +215,7 @@
             <plugin>
                 <groupId>io.thorntail</groupId>
                 <artifactId>thorntail-maven-plugin</artifactId>
-                <version>${version.thorntail}</version>
+                <version>${thorntail.version}</version>
                 <configuration>
                     <bundleDependencies>true</bundleDependencies>
                 </configuration>
@@ -218,6 +226,29 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.mysema.maven</groupId>
+                <artifactId>apt-maven-plugin</artifactId>
+                <version>1.1.3</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>process</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/generated-sources/java</outputDirectory>
+                            <processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+                        </configuration>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.querydsl</groupId>
+                        <artifactId>querydsl-apt</artifactId>
+                        <version>${querydsl.version}</version>
+                    </dependency>
+                </dependencies>
             </plugin>
             <plugin>
                 <groupId>com.spotify</groupId>

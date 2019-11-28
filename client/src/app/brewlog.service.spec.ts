@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { BrewlogService } from './brewlog-service.service';
+import { BrewlogService } from './brewlog.service';
 
 describe('BrewlogService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

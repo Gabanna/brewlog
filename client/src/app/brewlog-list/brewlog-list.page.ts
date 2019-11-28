@@ -1,41 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
-import { PopovermenuComponent } from '../popovermenu/popovermenu.component';
-import MenuItem from '../popovermenu/menu-item';
+import { loadMenu } from './brewlog-list.menu';
+import MenuSupporter from 'src/app/menu.supporter';
+import { BrewlogService } from '../brewlog.service';
 
 @Component({
   selector: 'app-brewlog-list',
   templateUrl: './brewlog-list.page.html',
   styleUrls: ['./brewlog-list.page.scss'],
 })
-export class BrewlogListPage implements OnInit {
-
-  private menu: Array<MenuItem> = [];
+export class BrewlogListPage extends MenuSupporter implements OnInit {
 
   constructor(
-    private popoverCtl: PopoverController
-  ) { }
-
-  async ngOnInit() {
-    this.menu = [
-      {
-        label: 'TITLE',
-        icon: 'star'
-      },
-      {
-        label: 'data',
-        icon: 'star',
-        langParam: {name: 'Kalle'}
-      }
-    ];
+    popoverCtl: PopoverController,
+    private brewlogService: BrewlogService
+  ) {
+    super(loadMenu);
   }
 
-  async presentPopover(ev: any) {
-    const popover = await this.popoverCtl.create({
-      component: PopovermenuComponent,
-      componentProps: {menuItems: this.menu},
-      event: ev
-    });
-    return await popover.present();
+  ngOnInit() {
+    this.brewlogService.
   }
+
 }

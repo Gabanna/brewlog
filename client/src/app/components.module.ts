@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
-import { PopovermenuComponent } from './popovermenu/popovermenu.component';
+import { IonicModule, MenuController } from '@ionic/angular';
+import { PopovermenuComponent } from '@app/popovermenu/popovermenu.component';
+import { MenuComponent } from '@app/menu/menu.component';
+import { HeaderComponent } from '@app/header/header.component';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 
@@ -11,11 +13,18 @@ import { TranslateModule } from '@ngx-translate/core';
     IonicModule.forRoot()
   ],
   declarations: [
-    PopovermenuComponent
+    PopovermenuComponent,
+    MenuComponent,
+    HeaderComponent
   ],
   entryComponents: [
     PopovermenuComponent
   ],
-  exports: [PopovermenuComponent, TranslateModule],
+  exports: [
+    PopovermenuComponent,
+    TranslateModule,
+    MenuComponent,
+    HeaderComponent
+  ],
 })
 export class ComponentsModule {}

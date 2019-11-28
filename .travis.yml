@@ -10,7 +10,7 @@ jobs:
         - 10.15.3
 
       install:
-        - npm install -g ionic@5.4.6 cordova@8.1.2
+        - npm install -g ionic@5.4.7 cordova@8.1.2
 
       before_script:
         - wget -q http://dl.google.com/android/android-sdk_r24.4-linux.tgz
