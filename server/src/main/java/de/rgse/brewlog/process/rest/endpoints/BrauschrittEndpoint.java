@@ -1,13 +1,11 @@
-package de.rgse.brewlog.rest.endpoints;
+package de.rgse.brewlog.process.rest.endpoints;
 
 import com.google.gson.Gson;
 import de.rgse.brewlog.process.ProcessVariables;
-import de.rgse.brewlog.rest.ClientIdHeaderFilter;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.task.Task;
 
 import javax.inject.Inject;
-import javax.interceptor.Interceptors;
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
 import javax.ws.rs.Path;

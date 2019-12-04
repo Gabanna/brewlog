@@ -1,13 +1,14 @@
-package de.rgse.brewlog.rest;
+package de.rgse.brewlog.process.rest;
 
 import com.google.gson.Gson;
-import de.rgse.brewlog.ProcessTest;
+import de.rgse.brewlog.process.ProcessTest;
 import de.rgse.brewlog.process.ProcessVariables;
-import de.rgse.brewlog.rest.endpoints.BrauschrittEndpoint;
+import de.rgse.brewlog.process.rest.endpoints.BrauschrittEndpoint;
 import lombok.extern.slf4j.Slf4j;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.test.Deployment;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import javax.ws.rs.core.MediaType;
@@ -20,6 +21,7 @@ import static org.camunda.bpm.engine.test.assertions.bpmn.BpmnAwareTests.*;
 @Slf4j
 public class BrauschrittEndpointTest extends ProcessTest {
 
+	@Ignore
 	@Test
 	@Deployment(resources = {
 			"processes/vorbereitung.bpmn"

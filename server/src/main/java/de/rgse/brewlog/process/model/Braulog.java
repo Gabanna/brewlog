@@ -11,7 +11,6 @@ public class Braulog extends BaseEntity {
 
     private String clientId;
 
-    @OneToOne
+    @OneToOne(optional = false)
     private Brauansatz brauansatz;
 }
-

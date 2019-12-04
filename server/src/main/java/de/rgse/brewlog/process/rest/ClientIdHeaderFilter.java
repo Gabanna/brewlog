@@ -1,4 +1,4 @@
-package de.rgse.brewlog.rest;
+package de.rgse.brewlog.process.rest;
 
 import org.apache.commons.lang.StringUtils;
 

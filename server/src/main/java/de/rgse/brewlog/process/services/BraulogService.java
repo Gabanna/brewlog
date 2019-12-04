@@ -23,4 +23,9 @@ public class BraulogService {
     public List<Braulog> getBraulogs(String clientId) {
         return new JPAQuery<Braulog>(entityManager).from(BRAULOG).where(BRAULOG.clientId.eq(clientId)).fetch();
     }
+
+    public Braulog create(Braulog braulog) {
+        entityManager.persist(braulog);
+        return null;
+    }
 }

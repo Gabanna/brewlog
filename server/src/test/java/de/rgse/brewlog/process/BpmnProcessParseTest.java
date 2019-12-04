@@ -1,7 +1,6 @@
-package de.rgse.brewlog;
+package de.rgse.brewlog.process;
 
 import org.camunda.bpm.engine.form.FormField;
-import org.camunda.bpm.engine.form.FormType;
 import org.camunda.bpm.engine.form.TaskFormData;
 import org.camunda.bpm.engine.impl.form.type.StringFormType;
 import org.camunda.bpm.engine.runtime.ProcessInstance;

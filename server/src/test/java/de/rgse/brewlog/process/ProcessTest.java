@@ -1,4 +1,4 @@
-package de.rgse.brewlog;
+package de.rgse.brewlog.process;
 
 import org.apache.ibatis.logging.LogFactory;
 import org.camunda.bpm.engine.runtime.Job;

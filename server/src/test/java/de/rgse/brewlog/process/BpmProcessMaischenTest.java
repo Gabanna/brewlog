@@ -1,6 +1,5 @@
-package de.rgse.brewlog;
+package de.rgse.brewlog.process;
 
-import de.rgse.brewlog.process.ProcessVariables;
 import de.rgse.brewlog.process.delegates.PendingPauseDelegate;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.runtime.ProcessInstance;

@@ -1,4 +1,4 @@
-package de.rgse.brewlog.rest;
+package de.rgse.brewlog.process.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

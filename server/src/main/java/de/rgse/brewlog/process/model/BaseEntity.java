@@ -1,11 +1,13 @@
 package de.rgse.brewlog.process.model;
 
+import lombok.Data;
 import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Data
 @MappedSuperclass
 public class BaseEntity {
 
