@@ -1,5 +1,6 @@
 package de.rgse.brewlog.process.rest.endpoints;
 
+import de.rgse.brewlog.process.model.vo.CreateBraulogRequest;
 import de.rgse.brewlog.process.services.BraulogService;
 
 import javax.inject.Inject;
@@ -34,8 +35,7 @@ public class BraulogsEndpoint {
 	}
 
 	@POST
-	public Braulog createLog(Braulog braulog) {
-		braulog.setClientId(clientId);
-		return braulogService.create(braulog);
+	public Braulog createLog(CreateBraulogRequest braulog) {
+		return braulogService.create(clientId, braulog);
 	}
 }

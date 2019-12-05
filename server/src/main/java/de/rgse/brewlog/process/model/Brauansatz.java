@@ -25,6 +25,6 @@ public class Brauansatz extends BaseEntity {
     private Hefeart hefeart;
 
     @Column(nullable = false)
-    private float biermengeInL;
+    private long biermengeInMl;
 
 }

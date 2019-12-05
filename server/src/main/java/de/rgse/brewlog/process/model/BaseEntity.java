@@ -1,36 +1,32 @@
 package de.rgse.brewlog.process.model;
 
+import com.google.gson.Gson;
 import lombok.Data;
-import org.apache.commons.lang.StringUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Data
 @MappedSuperclass
-public class BaseEntity {
-
-	@Id
-	private String id;
+public class BaseEntity extends Identifiable {
 
 	private LocalDateTime created;
 
-	@Version
 	private LocalDateTime updated;
 
 	@PrePersist
-	private void prePersist() {
-		if(StringUtils.isBlank(id)) {
-			id = UUID.randomUUID().toString();
-		}
-
+	private void prePersistBaseEntity() {
 		created = LocalDateTime.now();
-		updated = LocalDateTime.now();
+		updated = created;
 	}
 
 	@PreUpdate
 	private void preUpdate() {
 		updated = LocalDateTime.now();
+	}
+
+	@Override
+	public String toString() {
+		return new Gson().toJson(this);
 	}
 }

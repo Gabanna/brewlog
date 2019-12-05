@@ -1,0 +1,6 @@
+{
+  "username": "sa",
+  "password": "sa",
+  "jdbcUrl": "jdbc:h2:./target/junit;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE",
+  "driver": "org.h2.Driver"
+}

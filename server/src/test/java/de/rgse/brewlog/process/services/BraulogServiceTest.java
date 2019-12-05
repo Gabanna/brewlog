@@ -1,81 +1,49 @@
 package de.rgse.brewlog.process.services;
 
+import com.google.gson.Gson;
+import de.rgse.brewlog.process.PersistenceTest;
+import de.rgse.brewlog.process.model.Brauansatz;
 import de.rgse.brewlog.process.model.Braulog;
-import org.jboss.arquillian.container.test.api.Deployment;
-import org.jboss.arquillian.junit.Arquillian;
-import org.jboss.shrinkwrap.api.Archive;
-import org.jboss.shrinkwrap.api.ShrinkWrap;
-import org.jboss.shrinkwrap.api.asset.EmptyAsset;
-import org.jboss.shrinkwrap.api.spec.WebArchive;
-import org.junit.After;
+import de.rgse.brewlog.process.model.vo.CreateBraulogRequest;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
-import javax.inject.Inject;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.transaction.UserTransaction;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.List;
 
-@RunWith(Arquillian.class)
-public class BraulogServiceTest {
+@Slf4j
+public class BraulogServiceTest extends PersistenceTest {
 
-	@Deployment
-	public static Archive<?> createDeployment() {
-		return ShrinkWrap.create(WebArchive.class, "test.war")
-				.addPackage(Braulog.class.getPackage())
-				.addAsResource("test-persistence.xml", "META-INF/persistence.xml")
-				.addAsWebInfResource(EmptyAsset.INSTANCE, "beans.xml");
-	}
-
-	@PersistenceContext
-	EntityManager em;
-
-	@Inject
-	UserTransaction utx;
-
-	private String[] GAME_TITLES = {"1", "2"};
+	private BraulogService braulogService;
 
 	@Before
-	public void preparePersistenceTest() throws Exception {
-		clearData();
-		insertData();
-		startTransaction();
+	public void setup() {
+		BrauansatzService brauansatzService = new BrauansatzService(entityManager);
+		braulogService = new BraulogService(entityManager, brauansatzService);
 	}
-
-	@After
-	public void commitTransaction() throws Exception {
-		utx.commit();
-	}
-
 
 	@Test
-	public void shouldFindAllGamesUsingJpqlQuery() throws Exception {
-	}
+	public void test_persistMinimalBraulog() throws IOException {
+		String clientId = "clientId";
 
-	private void clearData() throws Exception {
-		utx.begin();
-		em.joinTransaction();
-		System.out.println("Dumping old records...");
-		em.createQuery("delete from Game").executeUpdate();
-		utx.commit();
-	}
+		try(InputStream inputStream = getClass().getResourceAsStream("/data/minimal_braulog.json")) {
+			CreateBraulogRequest request = new Gson().fromJson(new InputStreamReader(inputStream), CreateBraulogRequest.class);
 
-	private void insertData() throws Exception {
-		utx.begin();
-		em.joinTransaction();
-		System.out.println("Inserting records...");
-		for (String title : GAME_TITLES) {
-			Braulog log = new Braulog();
-			em.persist(log);
+			Braulog persisted = transact(() -> braulogService.create(clientId, request));
+
+			Assert.assertEquals(clientId, persisted.getClientId());
+			Assert.assertNotNull(persisted.getId());
+			Assert.assertNotNull(persisted.getCreated());
+			Assert.assertNotNull(persisted.getUpdated());
+			Assert.assertTrue(persisted.getUpdated().equals(persisted.getCreated()));
+
+			Brauansatz persistedBrauansatz = persisted.getBrauansatz();
+			Assert.assertNotNull(persistedBrauansatz);
+
 		}
-		utx.commit();
-		// clear the persistence context (first-level cache)
-		em.clear();
-	}
-
-	private void startTransaction() throws Exception {
-		utx.begin();
-		em.joinTransaction();
 	}
 }

@@ -9,8 +9,8 @@ import javax.persistence.*;
 @Entity
 public class Braulog extends BaseEntity {
 
-    private String clientId;
+	private String clientId;
 
-    @OneToOne(optional = false)
-    private Brauansatz brauansatz;
+	@OneToOne(optional = false, cascade = {CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.REMOVE})
+	private Brauansatz brauansatz;
 }
