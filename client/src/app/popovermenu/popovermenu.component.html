@@ -3,4 +3,9 @@
     <i item-start class="material-icons">{{menuItem.icon}}</i>
     <ion-label>{{menuItem.label | translate:menuItem.langParam}}</ion-label>
   </ion-item>
+  <ion-item-divider></ion-item-divider>
+  <ion-item (click)="logout()">
+    <i item-start class="material-icons">exit_to_app</i>
+    <ion-label>{{'LOGOUT' | translate}}</ion-label>
+  </ion-item>
 </ion-list>

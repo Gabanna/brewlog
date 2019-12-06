@@ -19,7 +19,6 @@ export class BrewlogListPage extends MenuSupporter implements OnInit {
   }
 
   ngOnInit() {
-    this.brewlogService.
   }
 
 }
