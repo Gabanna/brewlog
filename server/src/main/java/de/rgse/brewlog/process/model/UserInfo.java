@@ -9,6 +9,8 @@ import javax.enterprise.inject.Alternative;
 @Data
 public class UserInfo {
 
+	public static final String NAME = UserInfo.class.getCanonicalName();
+
 	public String userId;
 
 	public static UserInfo of(FirebaseToken token) {
