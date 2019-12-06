@@ -5,6 +5,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthException;
+import com.google.firebase.auth.FirebaseToken;
 import com.google.firebase.auth.UserRecord;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -32,9 +33,11 @@ public class FirebaseService {
 			if(dataBaseUrl.isPresent()) {
 				try(InputStream inputStream = FileUtils.openInputStream(new File(dataBaseUrl.get()))) {
 					JsonObject jsonObject = new Gson().fromJson(new InputStreamReader(inputStream), JsonObject.class);
+					String projectId = jsonObject.get("project_id").getAsString();
 					FirebaseOptions options = new FirebaseOptions.Builder()
 							.setCredentials(GoogleCredentials.getApplicationDefault())
-							.setDatabaseUrl(String.format("https://%s.firebaseio.com", jsonObject.get("project_id").getAsString()))
+							.setProjectId(projectId)
+							.setDatabaseUrl(String.format("https://%s.firebaseio.com", projectId))
 							.build();
 
 					FirebaseApp.initializeApp(options);
@@ -52,5 +55,9 @@ public class FirebaseService {
 	public UserRecord getUser(String userId) throws FirebaseAuthException {
 		UserRecord userRecord = FirebaseAuth.getInstance().getUser(userId);
 		return userRecord;
+	}
+
+	public FirebaseToken validate(String token) throws FirebaseAuthException {
+		return FirebaseAuth.getInstance().verifyIdToken(token);
 	}
 }
