@@ -12,4 +12,4 @@ buildNumber.properties
 
 .idea
 *.iml
-server/src/main/webapp/resources/css
+server/src/main/webapp/resources/css"*.db" 
