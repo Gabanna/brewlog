@@ -24,12 +24,16 @@ private provider: firebase.auth.GoogleAuthProvider;
     return await firebase.auth().signInWithRedirect(this.provider);
   }
 
-  public userInfo(): Promise<firebase.auth.UserCredential> {
-    return firebase.auth().getRedirectResult();
+  public userInfo(): firebase.User {
+    return firebase.auth().currentUser;
   }
 
   public onAuthStateChanged(callback: (user: firebase.User) => void) {
       firebase.auth().onAuthStateChanged(callback);
+  }
+
+  public getToken(): Promise<string> {
+    return this.userInfo().getIdToken();
   }
 
   public async logout(): Promise<void> {

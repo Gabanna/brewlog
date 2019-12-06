@@ -25,7 +25,7 @@ export class AppComponent {
     private firebase: FirebaseService
   ) {
     this.log = loggerService.getLogger('AppComponent');
-    this.initLoginState(this.initializeApp);
+    this.initLoginState(this.initializeApp.bind(this));
   }
 
   initializeApp() {
@@ -44,9 +44,7 @@ export class AppComponent {
 
   private initLoginState(callback: () => void) {
     this.firebase.onAuthStateChanged(user => {
-      debugger;
       if (user) {
-        user.getIdToken().then(token => console.info(token));
         callback();
       } else {
         this.firebase.signIn();
