@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { LoggingService, Logger } from 'ionic-logging-service';
-import { FirebaseService } from '@app/firebase.service';
+import { FirebaseService } from './firebase.service';
 
 @Component({
   selector: 'app-root',
@@ -16,6 +16,7 @@ export class AppComponent {
 
   private log: Logger;
 
+
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -25,30 +26,25 @@ export class AppComponent {
     private firebase: FirebaseService
   ) {
     this.log = loggerService.getLogger('AppComponent');
-    this.initLoginState(this.initializeApp.bind(this));
+    this.firebase.handeLoginState().then(() => {
+      this.initializeApp();
+    });
   }
 
-  initializeApp() {
+  private initializeApp() {
     this.platform.ready().then(() => {
+
+      console.info("handeLoginState done");
       this.translateService.setDefaultLang('en');
       let language = navigator.language as string;
-      if(language.indexOf('-') >= 0) {
+      if (language.indexOf('-') >= 0) {
         language = language.split('-')[0];
       }
       this.translateService.use(language);
       this.log.info('use language' + language);
       this.statusBar.styleDefault();
       this.splashScreen.hide();
-    });
-  }
-
-  private initLoginState(callback: () => void) {
-    this.firebase.onAuthStateChanged(user => {
-      if (user) {
-        callback();
-      } else {
-        this.firebase.signIn();
-      }
-    });
+    })
+      .catch(error => console.error(error));
   }
 }

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
 import { loadMenu } from './brewlog-list.menu';
 import MenuSupporter from 'src/app/menu.supporter';
 import { BrewlogService } from '../brewlog.service';
+import BrewLog from '../model/brewlog.model';
 
 @Component({
   selector: 'app-brewlog-list',
@@ -11,14 +11,16 @@ import { BrewlogService } from '../brewlog.service';
 })
 export class BrewlogListPage extends MenuSupporter implements OnInit {
 
+  public brewlogs: Array<BrewLog> = [];
+
   constructor(
-    popoverCtl: PopoverController,
     private brewlogService: BrewlogService
   ) {
     super(loadMenu);
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    this.brewlogs = await this.brewlogService.loadBrewlogs();
   }
 
 }

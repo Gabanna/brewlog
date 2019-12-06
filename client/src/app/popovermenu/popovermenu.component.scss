@@ -1,13 +1,13 @@
-.user-photo {
+ion-item {
+  .user-photo {
     display: inline-block;
     width: 24px;
     height: 24px;
     border-radius: 50%;
-}
+  }
 
-ion-item:hover {
+  &:hover {
     cursor: pointer;
-    .item-native{
-        --ion-background-color: red;
-    }
+    background-color: red;
+  }
 }
