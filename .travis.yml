@@ -62,6 +62,7 @@ jobs:
       script:
         - cd server
         - mvn package "-DimageTag=$TRAVIS_COMMIT" -q
-        - docker tag rgse/brewlog-server:$TRAVIS_COMMIT rgse/brewlog-server:$TRAVIS_TAG
+        - PUBLISH_TAG=registry.rg-software.work/rgse/brewlog-server:$TRAVIS_TAG
+        - docker tag rgse/brewlog-server:$TRAVIS_COMMIT $PUBLISH_TAG
         - docker login -u $DOCKER_USER -p $DOCKER_TOKEN
-        - docker push rgse/brewlog-server:$TRAVIS_TAG
+        - docker push $PUBLISH_TAG
