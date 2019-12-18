@@ -19,12 +19,12 @@
       "@model/*": ["src/app/model/*"],
       "@env/*": ["src/environments/*"],
       "@app/*": ["src/app/*"]
-    }
     },
     "lib": [
       "es2015",
       "dom"
     ],
+  },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true
