@@ -1,0 +1,21 @@
+[
+    {
+        "id": "0db6e161-627e-401b-b603-bf775daf127a",
+        "clientId": "mocker",
+        "brauansatz": {
+        "brauverfahren": "INFUSION",
+        "brautag": "2019-12-20T14:07:02+01:00",
+        "biertyp": {
+            "id": "fc44ff91-663a-4d59-b918-fd5e01052320",
+            "name": "Böhmisch' Pils",
+            "biersorte": {
+                "id": "2540cea8-dd78-4fea-829b-39049f3c8cb2",
+                "name": "Pils"
+            }
+        },
+        "brauer": "Ronny und Sarah",
+        "hefeart": "OBERGAERIG",
+        "biermengeInMl": 25000
+        }
+    }
+]

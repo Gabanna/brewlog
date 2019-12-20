@@ -7,6 +7,10 @@ import { TranslateService } from '@ngx-translate/core';
 import { LoggingService, Logger } from 'ionic-logging-service';
 import { FirebaseService } from './firebase.service';
 
+import { registerLocaleData } from '@angular/common';
+import localeFr from '@angular/common/locales/fr';
+import localeDe from '@angular/common/locales/de';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -16,7 +20,6 @@ export class AppComponent {
 
   private log: Logger;
 
-
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
@@ -25,7 +28,7 @@ export class AppComponent {
     private loggerService: LoggingService,
     private firebase: FirebaseService
   ) {
-    this.log = loggerService.getLogger('AppComponent');
+    this.log = this.loggerService.getLogger('AppComponent');
     this.firebase.handeLoginState().then(() => {
       this.initializeApp();
     });
@@ -34,9 +37,11 @@ export class AppComponent {
   private initializeApp() {
     this.platform.ready().then(() => {
 
-      console.info("handeLoginState done");
+      registerLocaleData(localeFr);
+      registerLocaleData(localeDe);
+
       this.translateService.setDefaultLang('en');
-      let language = navigator.language as string;
+      let language = navigator.language;
       if (language.indexOf('-') >= 0) {
         language = language.split('-')[0];
       }

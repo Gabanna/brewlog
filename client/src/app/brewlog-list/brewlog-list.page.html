@@ -4,8 +4,19 @@
 
 <ion-content>
   <ion-list>
+    <ion-item class="new-item">
+      <div class="new-item-wrapper">
+        <em class="material-icons">add_box</em>
+      </div>  
+    </ion-item>
     <ion-item *ngFor="let bl of brewlogs">
-      {{bl | json}}
+      <app-hefeart slot="start" [value]="bl?.brauansatz.hefeart"></app-hefeart>
+      <div class="brewlog-wrapper">
+        <span class="biertyp">{{bl?.brauansatz.biertyp.name}}</span>
+        <span *ngIf="bl?.brauansatz.biertyp.biersorte" class="biersorte">{{bl?.brauansatz.biertyp.biersorte.name}}</span>
+        <span class="brautag">{{format(bl?.brauansatz.brautag)}}</span>
+      </div>
+      
     </ion-item>
   </ion-list>
 </ion-content>

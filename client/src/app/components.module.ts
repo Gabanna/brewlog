@@ -5,6 +5,7 @@ import { MenuComponent } from '@app/menu/menu.component';
 import { HeaderComponent } from '@app/header/header.component';
 import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
+import { HefeartComponent } from './hefeart/hefeart.component';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { TranslateModule } from '@ngx-translate/core';
   declarations: [
     PopovermenuComponent,
     MenuComponent,
-    HeaderComponent
+    HeaderComponent,
+    HefeartComponent
   ],
   entryComponents: [
     PopovermenuComponent
@@ -24,7 +26,8 @@ import { TranslateModule } from '@ngx-translate/core';
     PopovermenuComponent,
     TranslateModule,
     MenuComponent,
-    HeaderComponent
+    HeaderComponent,
+    HefeartComponent
   ],
 })
 export class ComponentsModule {}

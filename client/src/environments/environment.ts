@@ -1,6 +1,12 @@
+import { BrewLog } from 'src/app/model';
+
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
+
+const mocks = [
+  BrewLog
+];
 
 export const environment = {
   production: false,
@@ -13,6 +19,9 @@ export const environment = {
     storageBucket: "brew-log-166f0.appspot.com",
     messagingSenderId: "674089166660",
     appId: "1:674089166660:web:f1bb70c5a5f8810bc39911"
+  },
+  isMock:function(requiredClass) {
+    return mocks.indexOf(requiredClass) > -1;
   }
 };
 

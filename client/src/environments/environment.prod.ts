@@ -8,6 +8,9 @@ export const environment = {
     projectId: "brew-log-166f0",
     storageBucket: "brew-log-166f0.appspot.com",
     messagingSenderId: "674089166660",
-    appId: "1:674089166660:web:f1bb70c5a5f8810bc39911"
+    appId: "1:674089166660:web:f1bb70c5a5f8810bc39911",
+    isMock: function () {
+      return false;
+    }
   }
 };

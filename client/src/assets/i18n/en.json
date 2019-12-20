@@ -1,4 +1,3 @@
 {
-    "TITLE": "Hello sir",
-    "data": "Hello {{name}}"
+    "LOGOUT": "Logout"
 }

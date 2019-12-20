@@ -23,7 +23,6 @@ export class FirebaseService {
   }
 
   public userInfo(): firebase.User {
-    console.info("current user", this.afAuth.auth.currentUser)
     return this.afAuth.auth.currentUser;
   }
 
@@ -35,7 +34,6 @@ export class FirebaseService {
     return new Promise((resolve, reject) => {
       const user = this.userInfo();
       if(!user) {
-        console.info("retry");
         setTimeout(() => {
           this.getToken()
           .then(u => resolve(u))
