@@ -1,8 +1,8 @@
 package de.rgse.brewlog.process.rest.endpoints;
 
 import de.rgse.brewlog.process.model.Braulog;
-import de.rgse.brewlog.process.model.UserInfo;
 import de.rgse.brewlog.process.model.vo.CreateBraulogRequest;
+import de.rgse.brewlog.process.rest.auth.Auth;
 import de.rgse.brewlog.process.services.BraulogService;
 
 import javax.inject.Inject;
@@ -11,12 +11,11 @@ import javax.transaction.Transactional;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
-import javax.ws.rs.container.ContainerRequestContext;
-import javax.ws.rs.core.Context;
 import java.util.List;
 
 @Transactional
 @Path("braulogs")
+@Auth
 public class BraulogsEndpoint extends UserInfoConsumer {
 
 	@Inject

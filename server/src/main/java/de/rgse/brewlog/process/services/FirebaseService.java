@@ -3,14 +3,12 @@ package de.rgse.brewlog.process.services;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthException;
-import com.google.firebase.auth.FirebaseToken;
-import com.google.firebase.auth.UserRecord;
+import com.google.firebase.auth.*;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import de.rgse.brewlog.process.util.FirebaseVariables;
 import de.rgse.brewlog.process.util.VariableReader;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 
 import javax.enterprise.context.ApplicationScoped;
@@ -22,12 +20,13 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Optional;
 
+@Slf4j
 @ApplicationScoped
 public class FirebaseService {
 
 	public void init(@Observes @Initialized(ApplicationScoped.class) Object init) {
 		try {
-
+			log.debug("initialising firebase");
 			Optional<String> dataBaseUrl = VariableReader.getVariable(FirebaseVariables.GOOGLE_APPLICATION_CREDENTIALS.name());
 
 			if(dataBaseUrl.isPresent()) {
@@ -38,9 +37,11 @@ public class FirebaseService {
 							.setCredentials(GoogleCredentials.getApplicationDefault())
 							.setProjectId(projectId)
 							.setDatabaseUrl(String.format("https://%s.firebaseio.com", projectId))
+							.setStorageBucket(String.format("https://%s.appspot.com", projectId))
 							.build();
 
 					FirebaseApp.initializeApp(options);
+					log.info("firebase successfully initialised");
 				}
 
 			} else {
@@ -59,5 +60,10 @@ public class FirebaseService {
 
 	public FirebaseToken validate(String token) throws FirebaseAuthException {
 		return FirebaseAuth.getInstance().verifyIdToken(token);
+	}
+
+	public String createLink(String email) throws FirebaseAuthException {
+		ActionCodeSettings actionCodeSettings = ActionCodeSettings.builder().setUrl("http://localhost:8080/login.html").build();
+		return FirebaseAuth.getInstance().generateSignInWithEmailLink(email, actionCodeSettings);
 	}
 }

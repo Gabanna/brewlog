@@ -13,9 +13,9 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <artifactName>brewlog-server</artifactName>
 
-        <thorntail.version>2.5.0.Final</thorntail.version>
-        <fraction.version>7.11.0</fraction.version>
+        <thorntail.version>2.6.0.Final</thorntail.version>
         <querydsl.version>4.2.2</querydsl.version>
+
     </properties>
 
     <dependencyManagement>

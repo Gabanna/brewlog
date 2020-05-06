@@ -2,6 +2,7 @@ package de.rgse.brewlog.process.rest.endpoints;
 
 import com.google.gson.Gson;
 import de.rgse.brewlog.process.ProcessVariables;
+import de.rgse.brewlog.process.rest.auth.Auth;
 import org.camunda.bpm.engine.TaskService;
 import org.camunda.bpm.engine.task.Task;
 
@@ -14,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
+@Auth
 @Path("brauschritt")
 public class BrauschrittEndpoint {
 
