@@ -57,6 +57,14 @@ module.exports = [
         "clobbers": [
             "SQLitePlugin"
         ]
+    },
+    {
+        "file": "plugins/com.danielsogl.cordova.deviceaccounts/www/DeviceAccounts.js",
+        "id": "com.danielsogl.cordova.deviceaccounts.DeviceAccounts",
+        "pluginId": "com.danielsogl.cordova.deviceaccounts",
+        "clobbers": [
+            "plugins.DeviceAccounts"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -68,7 +76,8 @@ module.exports.metadata =
     "cordova-plugin-splashscreen": "5.0.2",
     "cordova-plugin-statusbar": "2.4.2",
     "cordova-plugin-whitelist": "1.3.3",
-    "cordova-sqlite-storage": "3.4.0"
+    "cordova-sqlite-storage": "3.4.0",
+    "com.danielsogl.cordova.deviceaccounts": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

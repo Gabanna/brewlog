@@ -5,7 +5,6 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { TranslateService } from '@ngx-translate/core';
 import { LoggingService, Logger } from 'ionic-logging-service';
-import { FirebaseService } from './firebase.service';
 
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/fr';
@@ -25,13 +24,10 @@ export class AppComponent {
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
     private translateService: TranslateService,
-    private loggerService: LoggingService,
-    private firebase: FirebaseService
+    private loggerService: LoggingService
   ) {
     this.log = this.loggerService.getLogger('AppComponent');
-    this.firebase.handeLoginState().then(() => {
-      this.initializeApp();
-    });
+    this.initializeApp();
   }
 
   private initializeApp() {

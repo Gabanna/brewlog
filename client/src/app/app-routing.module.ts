@@ -10,7 +10,11 @@ const routes: Routes = [
   {
     path: 'brewlog-list',
     loadChildren: () => import('./brewlog-list/brewlog-list.module').then( m => m.BrewlogListPageModule)
+  },  {
+    path: 'credits',
+    loadChildren: () => import('./credits/credits.module').then( m => m.CreditsPageModule)
   }
+
 ];
 
 @NgModule({

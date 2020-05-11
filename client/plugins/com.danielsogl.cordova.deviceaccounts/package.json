@@ -1,0 +1,57 @@
+{
+  "_from": "cordova-device-accounts",
+  "_id": "cordova-device-accounts@1.0.0",
+  "_inBundle": false,
+  "_integrity": "sha512-FDMyZorDZWO9LSnYGGxRersR1ITFtA7/jdFKrjFee8NiGPDnR66/X5eR38n2sl45w3y//UZLCtqUgRcXi1WlIg==",
+  "_location": "/cordova-device-accounts",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-device-accounts",
+    "name": "cordova-device-accounts",
+    "escapedName": "cordova-device-accounts",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://npm.bwb.de/cordova-device-accounts/-/cordova-device-accounts-1.0.0.tgz",
+  "_shasum": "378f3974681b0ea08eb71b9316aed7e8fd8db52d",
+  "_spec": "cordova-device-accounts",
+  "_where": "C:\\dev.ws\\git.repo\\BrewLog\\client",
+  "author": {
+    "name": "Daniel Sogl"
+  },
+  "bugs": {
+    "url": "https://github.com/danielsogl/cordova-device-accounts/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "com.danielsogl.cordova.deviceaccounts",
+    "platforms": [
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova Device Accounts Plugin",
+  "homepage": "https://github.com/danielsogl/cordova-device-accounts#readme",
+  "keywords": [
+    "cordova",
+    "device",
+    "account",
+    "email",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "MIT",
+  "name": "cordova-device-accounts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielsogl/cordova-device-accounts.git"
+  },
+  "version": "1.0.0"
+}

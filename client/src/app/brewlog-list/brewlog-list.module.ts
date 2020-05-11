@@ -8,6 +8,7 @@ import { BrewlogListPageRoutingModule } from './brewlog-list-routing.module';
 
 import { BrewlogListPage } from './brewlog-list.page';
 import { ComponentsModule } from '../components.module';
+import { AccountService } from '../security/account.service';
 
 @NgModule({
   imports: [

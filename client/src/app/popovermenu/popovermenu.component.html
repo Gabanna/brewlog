@@ -1,13 +1,9 @@
 <ion-list>
+  <ion-list-header>
+    <ion-label>{{user?.name}}</ion-label>
+  </ion-list-header>
   <ion-item *ngFor="let menuItem of menuItems" (click)="onClick(menuItem)">
       <i item-start class="material-icons">{{menuItem.icon}}</i>
       <ion-label>{{menuItem.label | translate:menuItem.langParam}}</ion-label>
-  </ion-item>
-  <ion-item-divider></ion-item-divider>
-  <ion-item (click)="logout()">
-      <i item-start class="material-icons" class="user-photo">
-        <img src="{{ user?.photoURL}}" >
-      </i>
-      <ion-label>{{'LOGOUT' | translate}}</ion-label>
   </ion-item>
 </ion-list>

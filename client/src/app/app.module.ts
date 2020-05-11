@@ -16,10 +16,10 @@ import { LoggingServiceModule} from 'ionic-logging-service';
 
 import HttpLoaderFactory from '@app/http-loader-factory';
 
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { environment } from '../environments/environment';
 import { AngularDateHttpInterceptor } from './angular-date-http-interceptor ';
+import { DeviceAccounts } from '@ionic-native/device-accounts/ngx';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -30,19 +30,19 @@ import { AngularDateHttpInterceptor } from './angular-date-http-interceptor ';
     AppRoutingModule,
     IonicStorageModule.forRoot(),
     LoggingServiceModule,
+    BrowserAnimationsModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    }),
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    })
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    DeviceAccounts,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     {
       provide: HTTP_INTERCEPTORS,

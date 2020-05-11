@@ -3,7 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '@env/environment';
 import { BrewLog } from '@app/model';
 import WebService from './webservice';
-import { FirebaseService } from './firebase.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,9 +11,8 @@ export class BrewlogService extends WebService {
 
   constructor(
     private http: HttpClient,
-    firebase: FirebaseService
   ) {
-    super(firebase);
+    super();
   }
 
   public async loadBrewlogs(): Promise<Array<BrewLog>> {
