@@ -1,0 +1,35 @@
+.yeast_container {
+    $iconsize: 20px;
+    $border-width: 3px;
+    $container-width: 40px;
+
+    border-width: $border-width;
+    border-style: solid;
+    border-radius: 35%;
+
+    height: 40px;
+    width: $container-width;
+    text-align: center;
+
+    em {
+        font-size: $iconsize;
+    }
+
+    &.ober {
+        border-color: var(--ion-color-primary);
+        em {
+            position: absolute;
+            top: calc(#{$border-width + 1});
+            left: calc((#{$container-width} - #{$iconsize}) / 2 + 16px);
+        }
+    }
+
+    &.unter {
+        border-color: var(--ion-color-secondary);
+        em {
+            position: absolute;
+            bottom: calc(#{$border-width + 1});
+            left: calc((#{$container-width} - #{$iconsize}) / 2 + 16px);
+        }
+    }
+}

@@ -1,7 +1,14 @@
 .new-item {
     --color: var(--ion-color-primary);
+
     div.new-item-wrapper {
         width: 100%;
-        text-align: center;
     }
+
+}
+
+.brewlog-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
 }

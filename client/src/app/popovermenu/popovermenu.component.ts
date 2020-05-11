@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import MenuItem from './menu-item';
-import { NavParams, LoadingController } from '@ionic/angular';
-import { FirebaseService } from '@app/firebase.service';
+import { NavParams } from '@ionic/angular';
+import { AccountService } from '../security/account.service';
+import { Account } from '../security/account.model';
 
 @Component({
   selector: 'app-popovermenu',
@@ -12,22 +13,22 @@ export class PopovermenuComponent implements OnInit {
 
   public menuItems: Array<MenuItem> = [];
 
-  public user: firebase.User;
+  public user: Account;
 
   constructor(
-    private firebase: FirebaseService,
+    private accountService: AccountService,
     private navParams: NavParams
   ) {
     this.menuItems = this.navParams.get('menuItems');
   }
 
   ngOnInit() {
-    this.user = this.firebase.userInfo();
+    this.accountService.getAccount().subscribe(account => {
+      this.user = account;
+    }, error => {
+      console.error(error);
+    });
   }
 
   onClick(menuItem: MenuItem) {}
-
-  logout(): void {
-    this.firebase.logout();
-  }
 }
